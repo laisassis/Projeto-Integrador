@@ -6,7 +6,7 @@ CREATE TABLE `Produto` (
 	`dataFabricacao` DATE NOT NULL,
 	`dataValidade` DATE,
 	`quantidade` int NOT NULL,
-	`vendas_id` bigint NOT NULL,
+	`categoria_id` bigint NOT NULL,
 	`usuario_id` bigint NOT NULL,
 	PRIMARY KEY (`id`)
 );
@@ -26,22 +26,17 @@ CREATE TABLE `Usuario` (
 	PRIMARY KEY (`id`)
 );
 
-CREATE TABLE `Vendas` (
+CREATE TABLE `Categoria` (
 	`id` bigint NOT NULL AUTO_INCREMENT,
-	`pagamento` varchar(255) NOT NULL,
-	`valorPedido` double(8,2) NOT NULL,
-	`statusPedido` varchar(100) NOT NULL,
-	`dataPedido` TIMESTAMP NOT NULL,
-	`usuario_id` bigint NOT NULL,
+	`palavraChave` varchar(255) NOT NULL,
+	`descricao` varchar(500) NOT NULL,
+	`ativo` BOOLEAN NOT NULL DEFAULT true,
 	PRIMARY KEY (`id`)
 );
 
-ALTER TABLE `Produto` ADD CONSTRAINT `Produto_fk0` FOREIGN KEY (`vendas_id`) REFERENCES `Vendas`(`id`);
+ALTER TABLE `Produto` ADD CONSTRAINT `Produto_fk0` FOREIGN KEY (`categoria_id`) REFERENCES `Categoria`(`id`);
 
 ALTER TABLE `Produto` ADD CONSTRAINT `Produto_fk1` FOREIGN KEY (`usuario_id`) REFERENCES `Usuario`(`id`);
-
-ALTER TABLE `Vendas` ADD CONSTRAINT `Vendas_fk0` FOREIGN KEY (`usuario_id`) REFERENCES `Usuario`(`id`);
-
 
 
 
